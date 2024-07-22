@@ -1,35 +1,129 @@
+/* Overall Styling */
 body {
+    font-family: 'Press Start 2P', cursive; /* Choose a game-like font */
+    background-color: #333; /* Dark background */
+    color: #eee; /* Light text */
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: Arial, sans-serif;
-}
-#gameContainer {
-    position: relative;
-}
-canvas {
-    border: 1px solid black;
-}
-#score {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-#startMenu {
-    text-align: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  /* Title Styling */
+  #startMenu h2 {
+    color: #44ff44; /* Bright green title */
+    text-shadow: 0 0 10px #00ff00; /* Green glow effect */
     margin-bottom: 20px;
-}
-button {
-    font-size: 18px;
-    margin: 5px;
+  }
+  
+  /* Game Mode and Difficulty Styling */
+  #startMenu label,
+  #startMenu input[type="radio"],
+  #startMenu #difficultySelect,
+  #startMenu button {
+    display: block; /* Place each element on a new line */
+    width: 100%; /* Make elements take full available width */
+    margin-bottom: 10px; /* Add spacing between elements */
+    text-align: center; /* Center align text within elements */
+  }
+  
+  input[type="radio"] {
+    display: inline-block; /* Allow radio buttons to be inline */
+    width: auto; /* Reset width for radio buttons */
+    margin-right: 10px;
+  }
+  
+  #difficultySelect {
+    margin-bottom: 20px;
+    padding: 5px;
+    border: 2px solid #44ff44;
+    background-color: #222;
+    color: #eee;
+    font-family: inherit;
+  }
+  
+  /* Button Styling */
+  button {
+    background-color: #44ff44;
+    color: #222;
+    border: none;
     padding: 10px 20px;
-}
-#version {
-    position: absolute;
-    bottom: -30px;
-    right: 0;
-    font-size: 14px;
-    color: #666;
-}
-#musicControls {
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 4px #00aa00; /* Green button shadow */
+    font-family: inherit;
+  }
+  
+  button:hover {
+    background-color: #33cc33;
+    box-shadow: 0 2px #00aa00; /* Shadow change on hover */
+    transform: translateY(2px); /* Slight movement on hover */
+  }
+  
+  /* Game Container Styling */
+  #gameContainer {
+    background-color: #222;
+    border: 4px solid #44ff44;
+    border-radius: 10px;
+  }
+  
+  /* Score Display */
+  #score {
+    color: #eee;
+    font-size: 18px;
     margin-top: 10px;
-}
+  }
+  
+  /* Music Control Styling */
+  #musicControlContainer {
+    display: block;
+    width: 100%;
+    margin-top: 20px; /* Add spacing above the music control */
+    text-align: center;
+  }
+  
+  #musicControlContainer label {
+    display: inline-block; /* Keep label and switch on same line */
+    margin-right: 10px;
+  }
+  
+  /* Toggle Switch Styling */
+  #musicToggle {
+    -webkit-appearance: none; /* Hide default checkbox appearance */
+    appearance: none;
+    width: 40px;
+    height: 20px;
+    background: #ccc;
+    outline: none;
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer;
+  }
+  
+  #musicToggle:checked {
+    background: #44ff44; /* Green when checked (on) */
+  }
+  
+  #musicToggle::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%; /* Make it a circle */
+    background: #fff;
+    top: 2px;
+    left: 2px;
+    transition: 0.2s; /* Smooth transition */
+  }
+  
+  #musicToggle:checked::before {
+    left: 22px; /* Move circle to the right when checked */
+  }
+  
+  /* Volume Slider Styling */
+  #volumeControl {
+    width: 150px; /* Adjust width as needed */
+    margin-top: 5px; /* Add spacing between switch and slider */
+  }
