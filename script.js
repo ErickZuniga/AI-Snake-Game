@@ -7,6 +7,7 @@ const eatSound = document.getElementById('eatSound');
 const gameOverSound = document.getElementById('gameOverSound');
 const backgroundMusic = document.getElementById('backgroundMusic');
 const volumeControl = document.getElementById('volumeControl');
+const levelCompleteSound = document.getElementById('levelCompleteSound');
 
 const gridSize = 20;
 const tileCount = canvas.width / gridSize;
@@ -324,6 +325,24 @@ function checkCollision() {
             gameOver();
         }
     }
+    if (score >= 10) { // Check for level completion
+        levelComplete();
+    }
+}
+
+function levelComplete() {
+    clearInterval(gameLoop);
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+    levelCompleteSound.play();
+
+    setTimeout(() => {
+        alert('You have reached the end of the level. Congratulations!');
+
+        startMenu.style.display = 'block';
+        gameContainer.style.display = 'none';
+        scoreElement.style.display = 'none';
+    }, 200);
 }
 
 function gameOver() {
