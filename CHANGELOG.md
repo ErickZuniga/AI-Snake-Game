@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17] - 2024-07-22
+
+### Added
+
+-   Game Mode Selection: Players can now choose between two game modes:
+    -   **Original:** The classic Snake experience with no level completion.
+    -   **Mission Mode:** The game ends with a "Level Complete" message when the player reaches a score of 10.
+
 ## [1.16] - 2024-07-22
 
 ### Added

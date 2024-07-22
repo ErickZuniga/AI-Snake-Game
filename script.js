@@ -19,14 +19,17 @@ let dy = 0;
 let score = 0;
 let gameSpeed;
 let gameLoop;
+let gameMode = 'original'; // Default to "Original" mode
 
 document.addEventListener('keydown', changeDirection);
 
-function startGame(difficulty) {
+function startGame(mode, difficulty) {
+    gameMode = mode; 
     startMenu.style.display = 'none';
     gameContainer.style.display = 'block';
     scoreElement.style.display = 'block';
 
+    // Set game speed based on difficulty
     switch(difficulty) {
         case 'easy':
             gameSpeed = 120;
@@ -325,7 +328,7 @@ function checkCollision() {
             gameOver();
         }
     }
-    if (score >= 10) { // Check for level completion
+    if (gameMode === 'mission' && score >= 10) { // Check for level completion in "Mission Mode"
         levelComplete();
     }
 }

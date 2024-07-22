@@ -3,21 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game v1.16</title>
+    <title>Snake Game v1.17</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="startMenu">
         <h2>Snake Game</h2>
-        <p>Select Difficulty:</p>
-        <button onclick="startGame('easy')">Easy</button>
-        <button onclick="startGame('medium')">Medium</button>
-        <button onclick="startGame('hard')">Hard</button>
+        <label for="originalMode">Original</label>
+        <input type="radio" id="originalMode" name="gameMode" value="original" checked>
+        <br>
+        <label for="missionMode">Mission Mode</label>
+        <input type="radio" id="missionMode" name="gameMode" value="mission">
+        <br>
+        <select id="difficultySelect">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+        <br>
+        <button onclick="startGame(document.querySelector('input[name=gameMode]:checked').value, document.getElementById('difficultySelect').value)">Start Game</button>
     </div>
     <div id="score">Score: 0</div>
     <div id="gameContainer">
         <canvas id="gameCanvas" width="400" height="400"></canvas>
-        <div id="version">v1.16</div>
+        <div id="version">v1.17</div>
     </div>
     <div id="musicControls">
         <button onclick="toggleMusic()">Toggle Music</button>
