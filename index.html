@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game v1.14</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="startMenu">
+        <h2>Snake Game</h2>
+        <p>Select Difficulty:</p>
+        <button onclick="startGame('easy')">Easy</button>
+        <button onclick="startGame('medium')">Medium</button>
+        <button onclick="startGame('hard')">Hard</button>
+    </div>
+    <div id="score">Score: 0</div>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <div id="version">v1.14</div>
+    </div>
+    <div id="musicControls">
+        <button onclick="toggleMusic()">Toggle Music</button>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.5" onchange="adjustVolume()">
+    </div>
+    <audio id="eatSound" src="392883__clif_creates__hard-candy-bone-crunch.wav" preload="auto"></audio>
+    <audio id="gameOverSound" src="415079__harrietniamh__video-game-death-sound-effect.wav" preload="auto"></audio>
+    <audio id="backgroundMusic" src="670772__ustym_petrovych__8-bit-tune-short-sketch-adventure.wav" loop preload="auto"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
