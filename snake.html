@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game v1.13</title>
+    <title>Snake Game v1.14</title>
     <style>
         body {
             display: flex;
@@ -53,7 +53,7 @@
     <div id="score">Score: 0</div>
     <div id="gameContainer">
         <canvas id="gameCanvas" width="400" height="400"></canvas>
-        <div id="version">v1.13</div>
+        <div id="version">v1.14</div>
     </div>
     <div id="musicControls">
         <button onclick="toggleMusic()">Toggle Music</button>
@@ -149,6 +149,7 @@
 
         function drawGame() {
             clearCanvas();
+            drawBackground();
             moveSnake();
             drawFood();
             drawSnake();
@@ -157,7 +158,15 @@
         }
 
         function clearCanvas() {
-            ctx.fillStyle = 'white';
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawBackground() {
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#a8e063'); // Light green
+            gradient.addColorStop(1, '#56ab2f'); // Dark green
+
+            ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
