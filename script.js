@@ -340,8 +340,15 @@ function gameOver() {
 }
 
 function generateFood() {
-    food.x = Math.floor(Math.random() * tileCount);
-    food.y = Math.floor(Math.random() * tileCount);
+    let validPosition = false;
+
+    while (!validPosition) {
+        food.x = Math.floor(Math.random() * tileCount);
+        food.y = Math.floor(Math.random() * tileCount);
+
+        // Check if the food position overlaps with any part of the snake
+        validPosition = !snake.some(segment => segment.x === food.x && segment.y === food.y);
+    }
 }
 
 function updateScore() {
