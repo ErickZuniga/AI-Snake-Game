@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game v1.12</title>
+    <title>Snake Game v1.13</title>
     <style>
         body {
             display: flex;
@@ -53,7 +53,7 @@
     <div id="score">Score: 0</div>
     <div id="gameContainer">
         <canvas id="gameCanvas" width="400" height="400"></canvas>
-        <div id="version">v1.12</div>
+        <div id="version">v1.13</div>
     </div>
     <div id="musicControls">
         <button onclick="toggleMusic()">Toggle Music</button>
@@ -315,8 +315,25 @@
         }
 
         function drawSnakeBody(segment) {
-            ctx.fillStyle = 'limegreen';
-            ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
+            const x = segment.x * gridSize;
+            const y = segment.y * gridSize;
+            
+            // Create gradient
+            const gradient = ctx.createLinearGradient(x, y, x + gridSize, y + gridSize);
+            gradient.addColorStop(0, 'limegreen');
+            gradient.addColorStop(1, 'forestgreen');
+            
+            // Draw rounded rectangle for body segment
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.roundRect(x, y, gridSize, gridSize, gridSize / 5);
+            ctx.fill();
+            
+            // Add scale pattern
+            ctx.fillStyle = 'rgba(0, 100, 0, 0.3)';  // Dark green with some transparency
+            ctx.beginPath();
+            ctx.arc(x + gridSize / 2, y + gridSize / 2, gridSize / 3, 0, Math.PI * 2);
+            ctx.fill();
         }
 
         function drawSnakeTail(segment, prevSegment) {
