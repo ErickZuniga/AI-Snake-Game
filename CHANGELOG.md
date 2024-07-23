@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13] - 2024-07-23
+
+### Fixed
+
+- Resolved an issue where the snake could move backwards and collide with its first body segment when two direction keys were pressed simultaneously. Implemented a direction queue system to ensure only valid moves are executed, maintaining the integrity of the snake's movement.
+
+- Fixed a bug where obstacles from "Mission Mode" were persisting as invisible barriers in subsequent "Original Mode" games. Implemented a comprehensive game state reset function to ensure a clean slate for each new game, regardless of the previously played mode.
+
+### Changed
+
+- Improved the `changeDirection` function to use a queue system for handling rapid or simultaneous key presses, ensuring smoother and more predictable snake movement.
+
+- Added a `resetGameState` function to properly initialize all game variables when starting a new game or switching between game modes.
+
+- Modified the game initialization process to use a `startGame` function, which appropriately sets up the game based on the selected mode (Original or Mission).
+
+### Developer Notes
+
+- The direction queue system now prevents invalid backwards movement while still allowing responsive control of the snake.
+- Game state reset now includes clearing obstacles, resetting snake position, food, score, and any mode-specific variables.
+- Developers should ensure that `startGame(mode)` is called appropriately when initializing games or switching between modes.
+
 ## [1.22] - 2024-07-23
 
 ### Added

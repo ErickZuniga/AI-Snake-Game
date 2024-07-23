@@ -22,10 +22,14 @@ let gameLoop;
 let gameMode = 'original'; // Default to "Original" mode
 let obstacles = [];
 let isPaused = false;
+let lastDirection = { dx: 0, dy: 0 };
+let directionQueue = [];
+let currentDirection = { dx: 0, dy: 0 };
 
 document.addEventListener('keydown', changeDirection);
 
 function startGame(mode, difficulty) {
+    resetGameState();
     gameMode = mode; 
     startMenu.style.display = 'none';
     gameContainer.style.display = 'block';
@@ -99,6 +103,36 @@ function resetGame() {
     updateScore();
 }
 
+function resetGameState() {
+    // Reset snake
+    snake = [
+        {x: 200, y: 200},
+        {x: 190, y: 200},
+        {x: 180, y: 200},
+        {x: 170, y: 200}
+    ];
+    dx = 10;
+    dy = 0;
+
+    // Reset food
+    food = {
+        x: Math.floor(Math.random() * (canvas.width / 10)) * 10,
+        y: Math.floor(Math.random() * (canvas.height / 10)) * 10
+    };
+
+    // Reset score
+    score = 0;
+
+    // Clear obstacles
+    obstacles = [];
+
+    // Reset any other game-specific variables
+    // For example:
+    // gameSpeed = initialGameSpeed;
+    // level = 1;
+    // etc.
+}
+
 function changeDirection(event) {
     const LEFT_KEY = 37;
     const RIGHT_KEY = 39;
@@ -106,32 +140,49 @@ function changeDirection(event) {
     const DOWN_KEY = 40;
 
     const keyPressed = event.keyCode;
-    const goingUp = dy === -1;
-    const goingDown = dy === 1;
-    const goingRight = dx === 1;
-    const goingLeft = dx === -1;
 
-    if (keyPressed === LEFT_KEY && !goingRight) {
-        dx = -1;
-        dy = 0;
+    let newDirection;
+
+    if (keyPressed === LEFT_KEY) {
+        newDirection = { dx: -1, dy: 0 };
+    } else if (keyPressed === UP_KEY) {
+        newDirection = { dx: 0, dy: -1 };
+    } else if (keyPressed === RIGHT_KEY) {
+        newDirection = { dx: 1, dy: 0 };
+    } else if (keyPressed === DOWN_KEY) {
+        newDirection = { dx: 0, dy: 1 };
+    } else {
+        return; // Invalid key pressed
     }
-    if (keyPressed === UP_KEY && !goingDown) {
-        dx = 0;
-        dy = -1;
+
+    // Only add to queue if it's different from the last queued direction
+    if (directionQueue.length === 0 || 
+        (newDirection.dx !== directionQueue[directionQueue.length - 1].dx || 
+         newDirection.dy !== directionQueue[directionQueue.length - 1].dy)) {
+        directionQueue.push(newDirection);
     }
-    if (keyPressed === RIGHT_KEY && !goingLeft) {
-        dx = 1;
-        dy = 0;
-    }
-    if (keyPressed === DOWN_KEY && !goingUp) {
-        dx = 0;
-        dy = 1;
+}
+
+function updateDirection() {
+    if (directionQueue.length > 0) {
+        const newDirection = directionQueue[0];
+        
+        // Check if the new direction is valid (not opposite to current direction)
+        if ((newDirection.dx !== -currentDirection.dx || newDirection.dx === 0) &&
+            (newDirection.dy !== -currentDirection.dy || newDirection.dy === 0)) {
+            currentDirection = newDirection;
+            dx = currentDirection.dx;
+            dy = currentDirection.dy;
+        }
+        
+        directionQueue.shift(); // Remove the processed direction
     }
 }
 
 function drawGame() {
     clearCanvas();
     drawBackground();
+    updateDirection();
     moveSnake();
     drawFood();
     drawSnake();
