@@ -20,6 +20,7 @@ let score = 0;
 let gameSpeed;
 let gameLoop;
 let gameMode = 'original'; // Default to "Original" mode
+let obstacles = [];
 
 document.addEventListener('keydown', changeDirection);
 
@@ -43,6 +44,9 @@ function startGame(mode, difficulty) {
     }
 
     resetGame();
+    if (gameMode === 'mission') {
+        generateObstacles();
+    }
     gameLoop = setInterval(drawGame, gameSpeed);
     backgroundMusic.play();
 }
@@ -92,6 +96,9 @@ function drawGame() {
     moveSnake();
     drawFood();
     drawSnake();
+    if (gameMode === 'mission') {
+        drawObstacles();
+    }
     checkCollision();
     updateScore();
 }
@@ -154,6 +161,33 @@ function drawFood() {
     ctx.beginPath();
     ctx.arc((food.x + 0.5) * gridSize, (food.y + 0.6) * gridSize, gridSize / 10, 0, 2 * Math.PI);
     ctx.fill();
+}
+
+function generateObstacles() {
+    obstacles = []; // Clear previous obstacles
+    let obstacleCount = 5; // Number of obstacles
+    for (let i = 0; i < obstacleCount; i++) {
+        let obstacle;
+        do {
+            obstacle = {
+                x: Math.floor(Math.random() * tileCount),
+                y: Math.floor(Math.random() * tileCount),
+                color: Math.random() > 0.5 ? '#8B4513' : '#808080' // Brown or gray
+            };
+        } while (snake.some(segment => segment.x === obstacle.x && segment.y === obstacle.y) ||
+                 (food.x === obstacle.x && food.y === obstacle.y));
+        obstacles.push(obstacle);
+    }
+}
+
+function drawObstacles() {
+    obstacles.forEach(obstacle => {
+        ctx.beginPath();
+        ctx.arc(obstacle.x * gridSize + gridSize / 2, obstacle.y * gridSize + gridSize / 2, gridSize / 2, 0, 2 * Math.PI);
+        ctx.fillStyle = obstacle.color; // Use the stored color
+        ctx.fill();
+        ctx.stroke();
+    });
 }
 
 function drawSnake() {
@@ -328,7 +362,12 @@ function checkCollision() {
             gameOver();
         }
     }
-    if (gameMode === 'mission' && score >= 10) { // Check for level completion in "Mission Mode"
+    obstacles.forEach(obstacle => {
+        if (head.x === obstacle.x && head.y === obstacle.y) {
+            gameOver();
+        }
+    });
+    if (gameMode === 'mission' && score >= 10) {
         levelComplete();
     }
 }
