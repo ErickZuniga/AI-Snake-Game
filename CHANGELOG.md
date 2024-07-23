@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21] - 2024-07-23
+
+### Changed
+
+-   Moved the version display from beneath the game grid to the bottom of the title screen.
+-   Added a display for the current game mode beneath the game grid, replacing the previous version display.
+
 ## [1.20] - 2024-07-23
 
 ### Changed

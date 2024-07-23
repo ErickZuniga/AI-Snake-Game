@@ -47,8 +47,16 @@ function startGame(mode, difficulty) {
     if (gameMode === 'mission') {
         generateObstacles();
     }
+
+    // Display the current game mode
+    document.getElementById('currentModeDisplay').innerText = `Current Mode: ${gameMode}`;
+
+    // Check the state of the music toggle
+    if (document.getElementById('musicToggle').checked) {
+        backgroundMusic.play();
+    }
+
     gameLoop = setInterval(drawGame, gameSpeed);
-    backgroundMusic.play();
 }
 
 function resetGame() {
@@ -417,7 +425,8 @@ function updateScore() {
 }
 
 function toggleMusic() {
-    if (backgroundMusic.paused) {
+    const musicToggle = document.getElementById('musicToggle');
+    if (musicToggle.checked) {
         backgroundMusic.play();
     } else {
         backgroundMusic.pause();
