@@ -13,11 +13,9 @@
 <body>
     <div id="startMenu">
         <h2>Snake Game</h2>
-        <label for="originalMode">Original</label>
-        <input type="radio" id="originalMode" name="gameMode" value="original" checked>
+        <button id="originalModeButton" onclick="startGame('original', document.getElementById('difficultySelect').value)">Original Mode</button>
         <br>
-        <label for="missionMode">Mission Mode</label>
-        <input type="radio" id="missionMode" name="gameMode" value="mission">
+        <button id="missionModeButton" onclick="startGame('mission', document.getElementById('difficultySelect').value)">Mission Mode</button>
         <br>
         <select id="difficultySelect">
             <option value="easy">Easy</option>
@@ -25,7 +23,6 @@
             <option value="hard">Hard</option>
         </select>
         <br>
-        <button onclick="startGame(document.querySelector('input[name=gameMode]:checked').value, document.getElementById('difficultySelect').value)">Start Game</button>
     </div>
     <div id="score">Score: 0</div>
     <div id="gameContainer">
