@@ -21,6 +21,7 @@ let gameSpeed;
 let gameLoop;
 let gameMode = 'original'; // Default to "Original" mode
 let obstacles = [];
+let isPaused = false;
 
 document.addEventListener('keydown', changeDirection);
 
@@ -48,6 +49,10 @@ function startGame(mode, difficulty) {
         generateObstacles();
     }
 
+    // Set the initial volume and update the volume control slider
+    backgroundMusic.volume = 0.1;
+    document.getElementById('volumeControl').value = backgroundMusic.volume;
+
     // Display the current game mode
     document.getElementById('currentModeDisplay').innerText = `Current Mode: ${gameMode}`;
 
@@ -57,6 +62,32 @@ function startGame(mode, difficulty) {
     }
 
     gameLoop = setInterval(drawGame, gameSpeed);
+}
+
+function togglePause() {
+    if (isPaused) {
+        resumeGame();
+    } else {
+        pauseGame();
+    }
+}
+
+function pauseGame() {
+    clearInterval(gameLoop);
+    isPaused = true;
+    document.getElementById('pauseMenu').style.display = 'block';
+    document.getElementById('gameContainer').style.display = 'none';
+}
+
+function resumeGame() {
+    isPaused = false;
+    document.getElementById('pauseMenu').style.display = 'none';
+    document.getElementById('gameContainer').style.display = 'block';
+    gameLoop = setInterval(drawGame, gameSpeed);
+}
+
+function setVolume(volume) {
+    backgroundMusic.volume = volume; // Set the volume of the background music
 }
 
 function resetGame() {

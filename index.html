@@ -23,18 +23,24 @@
             <option value="hard">Hard</option>
         </select>
         <br>
+        <p id="versionDisplay">Version: 1.20</p>
     </div>
     <div id="score">Score: 0</div>
-    <div id="gameContainer">
+    <div id="gameContainer" style="display: none;">
         <canvas id="gameCanvas" width="400" height="400"></canvas>
         <p id="currentModeDisplay"></p>
+        <p id="scoreElement" style="display: none;">Score: 0</p>
+        <button id="pauseButton" onclick="togglePause()">Pause</button>
     </div>
-    <div id="musicControlContainer">
-        <label for="musicToggle">Music:</label>
-        <input type="checkbox" id="musicToggle" checked onchange="toggleMusic()">
+    <div id="pauseMenu" style="display: none;">
+        <h2>Paused</h2>
+        <button onclick="resumeGame()">Resume</button>
         <br>
-        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5" oninput="adjustVolume()">
-        <p id="versionDisplay">Version: <span class="version-number"></span></p>
+        <label for="musicToggle">Music:</label>
+        <input type="checkbox" id="musicToggle" onchange="toggleMusic()" checked>
+        <br>
+        <label for="volumeControl">Volume:</label>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.5" onchange="setVolume(this.value)">
     </div>
     <audio id="eatSound" src="392883__clif_creates__hard-candy-bone-crunch.wav" preload="auto"></audio>
     <audio id="gameOverSound" src="415079__harrietniamh__video-game-death-sound-effect.wav" preload="auto"></audio>
