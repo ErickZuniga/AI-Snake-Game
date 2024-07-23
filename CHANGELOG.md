@@ -5,7 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.13] - 2024-07-23
+## [1.25] - 2023-07-23
+
+### Added
+- Level complete screen for "Original Mode"
+  - Triggered when the snake fills up the entire grid
+  - Reuses the existing level complete screen from "Mission Mode"
+
+### Changed
+- Start screen now supports keyboard navigation
+  - Use arrow keys to move between options
+  - Press Enter to select an option
+  - Difficulty can be changed using keyboard when focused
+
+### Fixed
+- Issue with difficulty selection changing unintentionally during keyboard navigation
+
+### Technical
+- Added `isGridFull()` function to check if the snake has filled the entire grid
+- Modified `checkCollision()` function to include level complete condition for "Original Mode"
+- Implemented keyboard event listener for start menu navigation
+- Added logic to handle difficulty select focus state during keyboard navigation
+
+## [1.24] - 2024-07-23
+
+### Fixed
+- In Mission mode, food (hamster) now always appears in visible locations, preventing it from spawning behind obstacles.
+
+### Changed
+- Improved food generation algorithm to consider obstacle positions in Mission mode.
+
+### Developer Notes
+- Modified the `generateFood` function to check for obstacle collisions when placing food in Mission mode.
+
+## [1.23] - 2024-07-23
 
 ### Fixed
 

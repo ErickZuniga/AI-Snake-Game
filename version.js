@@ -1,5 +1,5 @@
 // version.js
-const currentVersion = "1.23"; // Store the version number here
+const currentVersion = "1.25"; // Store the version number here
 
 // Function to update HTML elements with the version number
 function updateVersionInHTML() {

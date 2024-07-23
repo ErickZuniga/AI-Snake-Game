@@ -8,6 +8,7 @@ const gameOverSound = document.getElementById('gameOverSound');
 const backgroundMusic = document.getElementById('backgroundMusic');
 const volumeControl = document.getElementById('volumeControl');
 const levelCompleteSound = document.getElementById('levelCompleteSound');
+const menuItems = ['originalModeButton', 'missionModeButton', 'difficultySelect'];
 
 const gridSize = 20;
 const tileCount = canvas.width / gridSize;
@@ -25,6 +26,7 @@ let isPaused = false;
 let lastDirection = { dx: 0, dy: 0 };
 let directionQueue = [];
 let currentDirection = { dx: 0, dy: 0 };
+let currentSelection = 0;
 
 document.addEventListener('keydown', changeDirection);
 
@@ -450,14 +452,18 @@ function checkCollision() {
     for (let i = 1; i < snake.length; i++) {
         if (head.x === snake[i].x && head.y === snake[i].y) {
             gameOver();
+            return;
         }
     }
     obstacles.forEach(obstacle => {
         if (head.x === obstacle.x && head.y === obstacle.y) {
             gameOver();
+            return;
         }
     });
     if (gameMode === 'mission' && score >= 10) {
+        levelComplete();
+    } else if (gameMode === 'original' && isGridFull()) {
         levelComplete();
     }
 }
@@ -490,6 +496,10 @@ function gameOver() {
     }, 200);
 }
 
+function isGridFull() {
+    return snake.length === tileCount * tileCount;
+}
+
 function generateFood() {
     let validPosition = false;
 
@@ -499,6 +509,11 @@ function generateFood() {
 
         // Check if the food position overlaps with any part of the snake
         validPosition = !snake.some(segment => segment.x === food.x && segment.y === food.y);
+
+        // In mission mode, also check if the food position overlaps with any obstacle
+        if (gameMode === 'mission' && validPosition) {
+            validPosition = !obstacles.some(obstacle => obstacle.x === food.x && obstacle.y === food.y);
+        }
     }
 }
 
@@ -525,3 +540,51 @@ scoreElement.style.display = 'none';
 
 // Set initial volume
 backgroundMusic.volume = volumeControl.value;
+
+function updateMenuSelection() {
+    menuItems.forEach((item, index) => {
+        const element = document.getElementById(item);
+        if (index === currentSelection) {
+            element.style.border = '2px solid white';
+        } else {
+            element.style.border = 'none';
+        }
+    });
+}
+
+document.addEventListener('keydown', function(event) {
+    if (startMenu.style.display !== 'none') {
+        const difficultySelect = document.getElementById('difficultySelect');
+        
+        if (document.activeElement === difficultySelect) {
+            if (event.key === 'Enter' || event.key === 'Escape') {
+                difficultySelect.blur();
+                updateMenuSelection();
+            }
+            return;
+        }
+
+        switch(event.key) {
+            case 'ArrowUp':
+                currentSelection = (currentSelection - 1 + menuItems.length) % menuItems.length;
+                updateMenuSelection();
+                break;
+            case 'ArrowDown':
+                currentSelection = (currentSelection + 1) % menuItems.length;
+                updateMenuSelection();
+                break;
+            case 'Enter':
+                if (currentSelection === 0) {
+                    startGame('original', difficultySelect.value);
+                } else if (currentSelection === 1) {
+                    startGame('mission', difficultySelect.value);
+                } else if (currentSelection === 2) {
+                    difficultySelect.focus();
+                }
+                break;
+        }
+    }
+});
+
+// Initialize menu selection
+updateMenuSelection();
