@@ -18,15 +18,23 @@ body {
     margin-bottom: 20px;
   }
   
-  /* Game Mode and Difficulty Styling */
+  /* Update the styling for the speed and size selects */
   #startMenu label,
-  #startMenu input[type="radio"],
-  #startMenu #difficultySelect,
+  #startMenu select,
   #startMenu button {
-    display: block; /* Place each element on a new line */
-    width: 100%; /* Make elements take full available width */
-    margin-bottom: 10px; /* Add spacing between elements */
-    text-align: center; /* Center align text within elements */
+      display: block; /* Place each element on a new line */
+      width: 100%; /* Make elements take full available width */
+      margin-bottom: 10px; /* Add spacing between elements */
+      text-align: center; /* Center align text within elements */
+  }
+
+  #speedSelect, #sizeSelect {
+      margin-bottom: 20px;
+      padding: 5px;
+      border: 2px solid #44ff44;
+      background-color: #222;
+      color: #eee;
+      font-family: inherit;
   }
   
   input[type="radio"] {

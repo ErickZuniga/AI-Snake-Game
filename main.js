@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initAudio();
 });
 
-export function startGame(mode, difficulty) {
+export function startGame(mode, speed) {
     const size = document.getElementById('sizeSelect').value;
-    console.log(`Starting game: mode = ${mode}, difficulty = ${difficulty}, size = ${size}`);
+    console.log(`Starting game: mode = ${mode}, speed = ${speed}, size = ${size}`);
     game = new Game(updateUI);
-    game.start(mode, difficulty, size);
+    game.start(mode, speed, size);
     document.getElementById('currentModeDisplay').textContent = `Mode: ${mode.charAt(0).toUpperCase() + mode.slice(1)}`; // Update the display
     showGameContainer();
     playBackgroundMusic();

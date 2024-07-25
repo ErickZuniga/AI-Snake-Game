@@ -3,6 +3,7 @@ export class Food {
         this.x = 15;
         this.y = 15;
         this.gridSize = 20;
+        this.tileCount = 20;
     }
 
     setGridSize(gridSize, tileCount) {
@@ -40,11 +41,10 @@ export class Food {
 
     generate(snake, obstacles) {
         let validPosition = false;
-        const tileCount = 20; // Assuming a 20x20 grid
 
         while (!validPosition) {
-            this.x = Math.floor(Math.random() * tileCount);
-            this.y = Math.floor(Math.random() * tileCount);
+            this.x = Math.floor(Math.random() * this.tileCount);
+            this.y = Math.floor(Math.random() * this.tileCount);
 
             // Check if the food position overlaps with any part of the snake
             validPosition = !snake.body.some(segment => segment.x === this.x && segment.y === this.y);

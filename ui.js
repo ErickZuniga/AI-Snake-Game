@@ -2,16 +2,16 @@ import { startGame, togglePause, resumeGame } from './main.js';
 import { setVolume, toggleMusic } from './audio.js';
 
 let currentSelection = 0;
-const menuItems = ['originalModeButton', 'missionModeButton', 'difficultySelect'];
+const menuItems = ['originalModeButton', 'missionModeButton', 'speedSelect'];
 
 export function initUI() {
     document.getElementById('originalModeButton').onclick = () => {
         console.log('Original Mode button clicked');
-        startGame('original', document.getElementById('difficultySelect').value);
+        startGame('original', document.getElementById('speedSelect').value);
     };
     document.getElementById('missionModeButton').onclick = () => {
         console.log('Mission Mode button clicked');
-        startGame('mission', document.getElementById('difficultySelect').value);
+        startGame('mission', document.getElementById('speedSelect').value);
     };
     document.getElementById('pauseButton').onclick = togglePause;
     document.getElementById('musicToggle').onchange = toggleMusic;
@@ -27,11 +27,11 @@ export function updateUI(score) {
 
 function handleKeyPress(event) {
     if (document.getElementById('startMenu').style.display !== 'none') {
-        const difficultySelect = document.getElementById('difficultySelect');
+        const speedSelect = document.getElementById('speedSelect');
         
-        if (document.activeElement === difficultySelect) {
+        if (document.activeElement === speedSelect) {
             if (event.key === 'Enter' || event.key === 'Escape') {
-                difficultySelect.blur();
+                speedSelect.blur();
                 updateMenuSelection();
             }
             return;
@@ -48,11 +48,11 @@ function handleKeyPress(event) {
                 break;
             case 'Enter':
                 if (currentSelection === 0) {
-                    startGame('original', difficultySelect.value);
+                    startGame('original', speedSelect.value);
                 } else if (currentSelection === 1) {
-                    startGame('mission', difficultySelect.value);
+                    startGame('mission', speedSelect.value);
                 } else if (currentSelection === 2) {
-                    difficultySelect.focus();
+                    speedSelect.focus();
                 }
                 break;
         }

@@ -15,7 +15,7 @@ export class Game {
         this.score = 0;
         this.gameSpeed = 100;
         this.gameLoop = null;
-        this.gameMode = 'original';
+        this.gameMode = 'classic';
         this.isPaused = false;
         this.bindKeyEvents();
     }
@@ -30,10 +30,10 @@ export class Game {
         }
     }
 
-    start(mode, difficulty, size) {
+    start(mode, speed, size) {
         this.resetGameState();
         this.gameMode = mode;
-        this.setDifficulty(difficulty);
+        this.setSpeed(speed);
         this.setSize(size);
         if (this.gameMode === 'mission') {
             this.obstacles.generate();
@@ -127,15 +127,15 @@ export class Game {
         this.score = 0;
     }
 
-    setDifficulty(difficulty) {
-        switch(difficulty) {
-            case 'easy':
+    setSpeed(speed) {
+        switch(speed) {
+            case 'slow':
                 this.gameSpeed = 120;
                 break;
-            case 'medium':
+            case 'normal':
                 this.gameSpeed = 100;
                 break;
-            case 'hard':
+            case 'fast':
                 this.gameSpeed = 80;
                 break;
         }
