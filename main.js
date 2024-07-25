@@ -2,7 +2,7 @@ import { Game } from './game.js';
 import { initUI, updateUI, showGameContainer, showStartMenu } from './ui.js';
 import { initAudio, playBackgroundMusic } from './audio.js';
 
-let game;
+let game = new Game();
 
 document.addEventListener('DOMContentLoaded', () => {
     initUI();
@@ -29,3 +29,6 @@ export function resumeGame() {
         game.resume();
     }
 }
+
+// Expose resumeGame to the global window object
+window.resumeGame = resumeGame;
