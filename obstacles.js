@@ -5,6 +5,11 @@ export class Obstacles {
         this.tileCount = 20;
     }
 
+    setGridSize(gridSize, tileCount) {
+        this.gridSize = gridSize;
+        this.tileCount = tileCount;
+    }
+
     generate() {
         this.list = []; // Clear previous obstacles
         let obstacleCount = 5; // Number of obstacles

@@ -5,6 +5,11 @@ export class Food {
         this.gridSize = 20;
     }
 
+    setGridSize(gridSize, tileCount) {
+        this.gridSize = gridSize;
+        this.tileCount = tileCount;
+    }
+
     draw(ctx) {
         // Draw hamster body
         ctx.fillStyle = 'burlywood';

@@ -30,10 +30,11 @@ export class Game {
         }
     }
 
-    start(mode, difficulty) {
+    start(mode, difficulty, size) {
         this.resetGameState();
         this.gameMode = mode;
         this.setDifficulty(difficulty);
+        this.setSize(size);
         if (this.gameMode === 'mission') {
             this.obstacles.generate();
         }
@@ -41,6 +42,29 @@ export class Game {
         playBackgroundMusic();
         this.bindKeyEvents();
         this.gameLoop = setInterval(() => this.update(), this.gameSpeed);
+    }
+
+    setSize(size) {
+        let gridSize, tileCount;
+        switch(size) {
+            case 'small':
+                gridSize = 20;
+                tileCount = 15;
+                break;
+            case 'medium':
+                gridSize = 20;
+                tileCount = 20;
+                break;
+            case 'large':
+                gridSize = 20;
+                tileCount = 25;
+                break;
+        }
+        this.canvas.width = gridSize * tileCount;
+        this.canvas.height = gridSize * tileCount;
+        this.snake.setGridSize(gridSize, tileCount);
+        this.food.setGridSize(gridSize, tileCount);
+        this.obstacles.setGridSize(gridSize, tileCount);
     }
 
     update() {

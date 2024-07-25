@@ -10,9 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 export function startGame(mode, difficulty) {
-    console.log(`Starting game: mode = ${mode}, difficulty = ${difficulty}`);
+    const size = document.getElementById('sizeSelect').value;
+    console.log(`Starting game: mode = ${mode}, difficulty = ${difficulty}, size = ${size}`);
     game = new Game(updateUI);
-    game.start(mode, difficulty);
+    game.start(mode, difficulty, size);
     document.getElementById('currentModeDisplay').textContent = `Mode: ${mode.charAt(0).toUpperCase() + mode.slice(1)}`; // Update the display
     showGameContainer();
     playBackgroundMusic();

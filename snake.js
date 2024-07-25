@@ -7,6 +7,11 @@ export class Snake {
         this.tileCount = 20;
     }
 
+    setGridSize(gridSize, tileCount) {
+        this.gridSize = gridSize;
+        this.tileCount = tileCount;
+    }
+
     move() {
         this.updateDirection();
         const head = {
