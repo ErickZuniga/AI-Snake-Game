@@ -13,7 +13,7 @@
 <body>
     <div id="startMenu">
         <h2>Snake Game</h2>
-        <button id="originalModeButton" onclick="startGame('original', document.getElementById('difficultySelect').value)">Original Mode</button>
+        <button id="classicModeButton" onclick="startGame('classic', document.getElementById('difficultySelect').value)">Original Mode</button>
         <br>
         <button id="missionModeButton" onclick="startGame('mission', document.getElementById('difficultySelect').value)">Mission Mode</button>
         <br>
@@ -47,6 +47,8 @@
         <br>
         <label for="volumeControl">Volume:</label>
         <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.5" onchange="setVolume(this.value)">
+        <br>
+        <button id="exitButton" onclick="exitToTitle()">Exit</button>
     </div>
     <audio id="eatSound" src="392883__clif_creates__hard-candy-bone-crunch.wav" preload="auto"></audio>
     <audio id="gameOverSound" src="415079__harrietniamh__video-game-death-sound-effect.wav" preload="auto"></audio>

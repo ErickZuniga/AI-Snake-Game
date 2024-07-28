@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.29] - 2024-07-26
+
+### Added
+- **Exit Button on Pause Menu:** Added an "Exit" button to the pause menu that allows players to return to the title menu.
+
 ## [1.28] - 2024-07-25
 
 ### Added

@@ -1,6 +1,6 @@
 import { Game } from './game.js';
 import { initUI, updateUI, showGameContainer, showStartMenu } from './ui.js';
-import { initAudio, playBackgroundMusic } from './audio.js';
+import { initAudio, playBackgroundMusic, pauseBackgroundMusic } from './audio.js';
 
 let game = new Game();
 
@@ -29,6 +29,17 @@ export function resumeGame() {
     if (game) {
         game.resume();
     }
+}
+
+export function exitToTitle() {
+    console.log('Exiting to title menu');
+    showStartMenu();
+    pauseBackgroundMusic();
+    if (game) {
+        clearInterval(game.gameLoop);
+        game = null;
+    }
+    document.getElementById('pauseMenu').style.display = 'none'; // Hide the pause menu
 }
 
 // Expose resumeGame to the global window object

@@ -1,13 +1,13 @@
-import { startGame, togglePause, resumeGame } from './main.js';
+import { startGame, togglePause, resumeGame, exitToTitle } from './main.js';
 import { setVolume, toggleMusic } from './audio.js';
 
 let currentSelection = 0;
-const menuItems = ['originalModeButton', 'missionModeButton', 'speedSelect'];
+const menuItems = ['classicModeButton', 'missionModeButton', 'speedSelect'];
 
 export function initUI() {
-    document.getElementById('originalModeButton').onclick = () => {
-        console.log('Original Mode button clicked');
-        startGame('original', document.getElementById('speedSelect').value);
+    document.getElementById('classicModeButton').onclick = () => {
+        console.log('Classic Mode button clicked');
+        startGame('classic', document.getElementById('speedSelect').value);
     };
     document.getElementById('missionModeButton').onclick = () => {
         console.log('Mission Mode button clicked');
@@ -16,6 +16,7 @@ export function initUI() {
     document.getElementById('pauseButton').onclick = togglePause;
     document.getElementById('musicToggle').onchange = toggleMusic;
     document.getElementById('volumeControl').onchange = (e) => setVolume(e.target.value);
+    document.getElementById('exitButton').onclick = exitToTitle;
 
     document.addEventListener('keydown', handleKeyPress);
     updateMenuSelection();
