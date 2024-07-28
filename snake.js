@@ -27,15 +27,15 @@ export class Snake {
         this.body.push({...tail});
     }
 
-    draw(ctx) {
+    draw(ctx, food) {
         this.body.forEach((segment, index) => {
-            if (index === 0) this.drawHead(ctx, segment);
+            if (index === 0) this.drawHead(ctx, segment, food);
             else if (index === this.body.length - 1) this.drawTail(ctx, segment, this.body[index - 1]);
             else this.drawBody(ctx, segment);
         });
     }
 
-    drawHead(ctx, segment) {
+    drawHead(ctx, segment, food) {
         const x = segment.x * this.gridSize;
         const y = segment.y * this.gridSize;
         const radius = this.gridSize / 2;
@@ -44,6 +44,11 @@ export class Snake {
         const isMovingLeft = this.direction.dx === -1;
         const isMovingDown = this.direction.dy === 1 || (this.direction.dx === 0 && this.direction.dy === 0);
         const isMovingUp = this.direction.dy === -1;
+
+        const isFoodInFront = (isMovingRight && food.x === segment.x + 1 && food.y === segment.y) ||
+                              (isMovingLeft && food.x === segment.x - 1 && food.y === segment.y) ||
+                              (isMovingDown && food.x === segment.x && food.y === segment.y + 1) ||
+                              (isMovingUp && food.x === segment.x && food.y === segment.y - 1);
 
         ctx.fillStyle = 'forestgreen';
         ctx.beginPath();
@@ -77,6 +82,22 @@ export class Snake {
         }
         ctx.closePath();
         ctx.fill();
+
+        // Draw mouth if food is in front
+        if (isFoodInFront) {
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            if (isMovingRight) {
+                ctx.arc(x + this.gridSize * 1.2, y + radius, radius * 0.3, 0, Math.PI * 2);
+            } else if (isMovingLeft) {
+                ctx.arc(x - this.gridSize * 0.2, y + radius, radius * 0.3, 0, Math.PI * 2);
+            } else if (isMovingDown) {
+                ctx.arc(x + radius, y + this.gridSize * 1.2, radius * 0.3, 0, Math.PI * 2);
+            } else if (isMovingUp) {
+                ctx.arc(x + radius, y - this.gridSize * 0.2, radius * 0.3, 0, Math.PI * 2);
+            }
+            ctx.fill();
+        }
 
         // Draw eyes
         ctx.fillStyle = 'white';
@@ -209,7 +230,7 @@ export class Snake {
 
         if (this.directionQueue.length === 0 || 
             (newDirection.dx !== this.directionQueue[this.directionQueue.length - 1].dx || 
-             newDirection.dy !== this.directionQueue[this.directionQueue.length - 1].dy)) {
+            newDirection.dy !== this.directionQueue[this.directionQueue.length - 1].dy)) {
             this.directionQueue.push(newDirection);
         }
     }

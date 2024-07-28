@@ -3,7 +3,6 @@ import { Food } from './food.js';
 import { Obstacles } from './obstacles.js';
 import { playEatSound, playGameOverSound, playLevelCompleteSound, pauseBackgroundMusic, playBackgroundMusic } from './audio.js';
 
-
 export class Game {
     constructor(updateUICallback) {
         this.snake = new Snake();
@@ -20,16 +19,6 @@ export class Game {
         this.bindKeyEvents();
     }
 
-    bindKeyEvents() {
-        document.addEventListener('keydown', this.handleKeyPress.bind(this));
-    }
-
-    handleKeyPress(event) {
-        if (!this.isPaused) {
-            this.snake.changeDirection(event.keyCode);
-        }
-    }
-
     start(mode, speed, size) {
         this.resetGameState();
         this.gameMode = mode;
@@ -42,6 +31,20 @@ export class Game {
         playBackgroundMusic();
         this.bindKeyEvents();
         this.gameLoop = setInterval(() => this.update(), this.gameSpeed);
+    }
+
+    setSpeed(speed) {
+        switch(speed) {
+            case 'slow':
+                this.gameSpeed = 120;
+                break;
+            case 'normal':
+                this.gameSpeed = 100;
+                break;
+            case 'fast':
+                this.gameSpeed = 80;
+                break;
+        }
     }
 
     setSize(size) {
@@ -72,7 +75,7 @@ export class Game {
         this.drawBackground();
         this.snake.move();
         this.food.draw(this.ctx);
-        this.snake.draw(this.ctx);
+        this.snake.draw(this.ctx, this.food); // Pass the food parameter
         if (this.gameMode === 'mission') {
             this.obstacles.draw(this.ctx);
         }
@@ -91,7 +94,7 @@ export class Game {
         }
 
         if ((this.gameMode === 'mission' && this.score >= 10) || 
-            (this.gameMode === 'original' && this.snake.isGridFull())) {
+            (this.gameMode === 'classic' && this.snake.isGridFull())) {
             this.levelComplete();
         }
     }
@@ -127,17 +130,13 @@ export class Game {
         this.score = 0;
     }
 
-    setSpeed(speed) {
-        switch(speed) {
-            case 'slow':
-                this.gameSpeed = 120;
-                break;
-            case 'normal':
-                this.gameSpeed = 100;
-                break;
-            case 'fast':
-                this.gameSpeed = 80;
-                break;
+    bindKeyEvents() {
+        document.addEventListener('keydown', this.handleKeyPress.bind(this));
+    }
+
+    handleKeyPress(event) {
+        if (!this.isPaused) {
+            this.snake.changeDirection(event.keyCode);
         }
     }
 
