@@ -1,7 +1,7 @@
 /* Overall Styling */
 body {
     font-family: 'Press Start 2P', cursive; /* Choose a game-like font */
-    background-color: #333; /* Dark background */
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     color: #eee; /* Light text */
     display: flex;
     flex-direction: column;
